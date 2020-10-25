@@ -1,46 +1,45 @@
-from rest_framework import status, permissions
-from rest_framework.decorators import api_view, permission_classes
+from django.http import Http404
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 
 from hotzone.models import Location
 from hotzone.serializers import LocationSerializer
 
-
-@api_view(['GET', 'POST'])
-@permission_classes((permissions.AllowAny,))
-def location_list(request, format = None):
-    if request.method == 'GET':
-        locations = Location.objects.all()
-        serializer = LocationSerializer(locations, many=True)
+class LocationList(APIView):
+    def get(self, request, format = None):
+        location = Location.objects.all()
+        serializer = LocationSerializer(location, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'POST':
+    def post(self, request, format = None):
         serializer = LocationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class LocationDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Location.objects.get(pk=pk)
+        except Location.DoesNotExist:
+            raise Http404
 
-@api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes((permissions.AllowAny,))
-def location_detail(request, pk, format = None):
-    try:
-        location = Location.objects.get(pk=pk)
-    except Location.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
+    def get(self, request, pk, format = None):
+        location = self.get_object(pk)
         serializer = LocationSerializer(location)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    def put(self, request, pk, format = None):
+        location = self.get_object(pk)
         serializer = LocationSerializer(location, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format = None):
+        location = self.get_object(pk)
         location.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
