@@ -1,6 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Location
+from .serializers import LocationSerializer
+from rest_framework import generics
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the hotZone index.")
+class LocationList(generics.ListCreateAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
