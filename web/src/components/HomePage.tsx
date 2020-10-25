@@ -3,6 +3,7 @@ import { Layout, Menu } from "antd";
 import { EnvironmentOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Logo } from "./Logo";
+import { LocationTable } from "./LocationTable";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -17,7 +18,7 @@ export const HomePage: React.FC = () => (
       <Logo />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
         <Menu.Item key="1" icon={<EnvironmentOutlined />}>
-          Location
+          Locations
         </Menu.Item>
         <Menu.Item key="2" icon={<UserOutlined />}>
           Cases
@@ -30,7 +31,7 @@ export const HomePage: React.FC = () => (
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          content
+          <LocationTable />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>Made with ♥️</Footer>
