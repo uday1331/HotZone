@@ -6,8 +6,8 @@ interface ListType {
   id: string;
   x_coord: string;
   y_coord: string;
+  name: string;
   address: string;
-  location: string;
 }
 
 const columns = [
@@ -15,6 +15,11 @@ const columns = [
     title: "ID",
     dataIndex: "id",
     key: "id",
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
   },
   {
     title: "X Co-ordinate",
@@ -25,11 +30,6 @@ const columns = [
     title: "Y Co-ordinate",
     dataIndex: "y_coord",
     key: "y_coord",
-  },
-  {
-    title: "Location",
-    dataIndex: "location",
-    key: "location",
   },
   {
     title: "Address",
