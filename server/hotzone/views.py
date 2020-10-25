@@ -1,45 +1,13 @@
-from django.http import Http404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from .models import Location
+from .serializers import LocationSerializer
+from rest_framework import generics
 
-from hotzone.models import Location
-from hotzone.serializers import LocationSerializer
 
-class LocationList(APIView):
-    def get(self, request, format = None):
-        location = Location.objects.all()
-        serializer = LocationSerializer(location, many=True)
-        return Response(serializer.data)
+class LocationList(generics.ListCreateAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
-    def post(self, request, format = None):
-        serializer = LocationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class LocationDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return Location.objects.get(pk=pk)
-        except Location.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format = None):
-        location = self.get_object(pk)
-        serializer = LocationSerializer(location)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format = None):
-        location = self.get_object(pk)
-        serializer = LocationSerializer(location, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format = None):
-        location = self.get_object(pk)
-        location.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
