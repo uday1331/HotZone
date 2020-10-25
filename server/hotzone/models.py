@@ -8,4 +8,4 @@ class Location(models.Model):
     x_coord = models.FloatField('X Co-ordinate')
     y_coord = models.FloatField('Y Co-ordinate')
     name = models.CharField(max_length=100)
-    address = models.CharField(max_length=250)
+    address = models.CharField(max_length=250, blank = True)

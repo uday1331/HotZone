@@ -18,6 +18,9 @@ class LocationList(generics.ListCreateAPIView):
         input_name = request.data.get('name')
 
         geo_data_response = req.get('https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q=' + urllib.parse.quote(input_name))
+        if(not geo_data_response):
+           return Response("GeoData pertaining to '" + input_name + "' not found." , status=status.HTTP_404_NOT_FOUND)
+
         data = geo_data_response.json()
 
         location_data = {}

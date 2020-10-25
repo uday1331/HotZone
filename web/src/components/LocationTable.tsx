@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Space, Spin, Table, Input } from "antd";
+import { Space, Spin, Table, Input, Alert } from "antd";
 import axios from "axios";
 
 const { Search } = Input;
@@ -43,8 +43,10 @@ const columns = [
 export const LocationTable: React.FC = () => {
   const [locations, setLocations] = useState<Array<ListType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const onSubmit = () => {};
+  const [alert, setAlert] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
   useEffect(() => {
     if (loading) {
@@ -64,26 +66,48 @@ export const LocationTable: React.FC = () => {
     );
 
   return (
-    <Table
-      dataSource={locations}
-      columns={columns}
-      footer={() => (
-        <Search
-          placeholder="Enter Location Name"
-          allowClear
-          loading={loading}
-          enterButton="Add Location"
-          size="large"
-          onSearch={(name) => {
-            axios
-              .post("http://127.0.0.1:8000/hotzone/locations/", { name })
-              .then((res) => {
-                setLoading(true);
-              })
-              .catch((err) => console.log(err));
-          }}
+    <>
+      {alert ? (
+        <Alert
+          style={{ marginBottom: 10 }}
+          banner
+          message={alert.message}
+          type={alert.type}
+          showIcon
+          closable
         />
-      )}
-    />
+      ) : null}
+
+      <Table
+        dataSource={locations}
+        columns={columns}
+        footer={() => (
+          <Search
+            placeholder="Enter Location Name"
+            allowClear
+            loading={loading}
+            enterButton="Add Location"
+            size="large"
+            onSearch={(name) => {
+              axios
+                .post("http://127.0.0.1:8000/hotzone/locations/", { name })
+                .then((res) => {
+                  setLoading(true);
+                  setAlert({
+                    type: "success",
+                    message: "Successfully Created",
+                  });
+                })
+                .catch((err) => {
+                  setAlert({
+                    type: "error",
+                    message: err.response.data,
+                  });
+                });
+            }}
+          />
+        )}
+      />
+    </>
   );
 };
