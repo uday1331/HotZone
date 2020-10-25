@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Space, Spin, Table } from "antd";
+import { Space, Spin, Table, Input } from "antd";
 import axios from "axios";
+
+const { Search } = Input;
 
 interface ListType {
   id: string;
@@ -39,23 +41,49 @@ const columns = [
 ];
 
 export const LocationTable: React.FC = () => {
-  const [locations, setLocations] = useState<Array<ListType> | null>(null);
+  const [locations, setLocations] = useState<Array<ListType>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const onSubmit = () => {};
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/hotzone/locations.json`).then((res) => {
-      const tempLocations = res.data;
-      setLocations(tempLocations);
-    });
+    if (loading) {
+      axios.get(`http://127.0.0.1:8000/hotzone/locations.json`).then((res) => {
+        const tempLocations = res.data;
+        setLocations(tempLocations);
+        setLoading(false);
+      });
+    }
+  }, [loading]);
 
-    setLocations(locations);
-  }, []);
-
-  if (!locations)
+  if (loading)
     return (
       <Space size="middle">
         <Spin size="large" />
       </Space>
     );
 
-  return <Table dataSource={locations} columns={columns} />;
+  return (
+    <Table
+      dataSource={locations}
+      columns={columns}
+      footer={() => (
+        <Search
+          placeholder="Enter Location Name"
+          allowClear
+          loading={loading}
+          enterButton="Add Location"
+          size="large"
+          onSearch={(name) => {
+            axios
+              .post("http://127.0.0.1:8000/hotzone/locations/", { name })
+              .then((res) => {
+                setLoading(true);
+              })
+              .catch((err) => console.log(err));
+          }}
+        />
+      )}
+    />
+  );
 };
