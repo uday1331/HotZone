@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Space, Spin, Table } from "antd";
 import axios from "axios";
+
+interface ListType {
+  id: string;
+  x_coord: string;
+  y_coord: string;
+  address: string;
+  location: string;
+}
 
 const columns = [
   {
@@ -31,7 +39,7 @@ const columns = [
 ];
 
 export const LocationTable: React.FC = () => {
-  const [locations, setLocations] = useState();
+  const [locations, setLocations] = useState<Array<ListType> | null>(null);
 
   useEffect(() => {
     axios.get(`http://127.0.0.1:8000/hotzone/locations.json`).then((res) => {
@@ -41,6 +49,13 @@ export const LocationTable: React.FC = () => {
 
     setLocations(locations);
   }, []);
+
+  if (!locations)
+    return (
+      <Space size="middle">
+        <Spin size="large" />
+      </Space>
+    );
 
   return <Table dataSource={locations} columns={columns} />;
 };
