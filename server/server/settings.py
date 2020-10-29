@@ -73,7 +73,7 @@ ROOT_URLCONF = 'server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(SERVER_DIR, '/build')],
+        'DIRS': [os.path.join(SERVER_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
