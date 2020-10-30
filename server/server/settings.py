@@ -70,6 +70,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ORIGIN_WHITELIST = [
     'http://hotzone3035552765.herokuapp.com',
+    'https://hotzone3035552765.herokuapp.com',
     'http://localhost',
 ]
 
