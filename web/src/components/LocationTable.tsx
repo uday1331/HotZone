@@ -51,7 +51,7 @@ export const LocationTable: React.FC = () => {
   useEffect(() => {
     if (loading) {
       axios
-        .get(`http://hotzone3035552765.herokuapp.com/hotzone/locations.json`)
+        .get(`https://hotzone3035552765.herokuapp.com/hotzone/locations.json`)
         .then((res) => {
           const tempLocations = res.data;
           setLocations(tempLocations);
@@ -93,7 +93,7 @@ export const LocationTable: React.FC = () => {
             onSearch={(name) => {
               axios
                 .post(
-                  "http://hotzone3035552765.herokuapp.com/hotzone/locations/",
+                  "https://hotzone3035552765.herokuapp.com/hotzone/locations/",
                   { name }
                 )
                 .then((res) => {
