@@ -39,3 +39,4 @@ class LocationList(generics.ListCreateAPIView):
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+
