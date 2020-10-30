@@ -9,12 +9,7 @@ const { Content, Footer, Sider } = Layout;
 
 export const HomePage: React.FC = () => (
   <Layout style={{ height: "100%" }}>
-    <Sider
-      breakpoint="lg"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-    >
+    <Sider breakpoint="lg">
       <Logo />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
         <Menu.Item key="1" icon={<EnvironmentOutlined />}>

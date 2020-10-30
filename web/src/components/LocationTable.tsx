@@ -50,11 +50,13 @@ export const LocationTable: React.FC = () => {
 
   useEffect(() => {
     if (loading) {
-      axios.get(`http://127.0.0.1:8000/hotzone/locations.json`).then((res) => {
-        const tempLocations = res.data;
-        setLocations(tempLocations);
-        setLoading(false);
-      });
+      axios
+        .get(`https://hotzone3035552765.herokuapp.com/hotzone/locations.json`)
+        .then((res) => {
+          const tempLocations = res.data;
+          setLocations(tempLocations);
+          setLoading(false);
+        });
     }
   }, [loading]);
 
@@ -90,7 +92,10 @@ export const LocationTable: React.FC = () => {
             size="large"
             onSearch={(name) => {
               axios
-                .post("http://127.0.0.1:8000/hotzone/locations/", { name })
+                .post(
+                  "https://hotzone3035552765.herokuapp.com/hotzone/locations/",
+                  { name }
+                )
                 .then((res) => {
                   setLoading(true);
                   setAlert({
