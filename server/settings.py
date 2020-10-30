@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+from environs import Env
 import os
+
+# For environs[django]
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -27,8 +32,8 @@ SECRET_KEY = 'm4cmte5d4xd_2(q-r8u_t+#^w8jl^^slx4(6ah33(6n7s0$lg('
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  'hotzone3035552765.herokuapp.com',
-  'localhost'
+    'hotzone3035552765.herokuapp.com',
+    'localhost'
 ]
 
 
@@ -91,14 +96,9 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': SERVER_DIR / 'db.sqlite3',
-    }
+    'default': env.dj_db_url('DATABASE_URL')
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
