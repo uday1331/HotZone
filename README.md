@@ -8,4 +8,4 @@ As expected, the first iteration of HotZone will handle the simple case where th
 
 - Editing and Deleting Locations is not allowed.
 - Location can only be created based on GeoData Store i.e user cannot choose to input own values for the Location.
-- Case data storage is not supported yet
+- Case Data storage is not supported yet.
