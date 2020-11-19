@@ -1,8 +1,10 @@
 #HotZone
-## Deployed at:
-https://hotzone3035552765.herokuapp.com/
 
-## Iteration 1:
+## Deployed at:
+
+https://group-q-hotzone.herokuapp.com/
+
+## Iteration 2:
 
 As expected, the first iteration of HotZone will handle the simple case where there is a single GeoData location that satisfies the search criteria and the location is not already known to HotZone.
 
@@ -15,13 +17,15 @@ As expected, the first iteration of HotZone will handle the simple case where th
 
 ## Setting up the development environment:
 
-### Setting up the backend: 
+### Setting up the backend:
+
 1. Change directory to `HotZone/server`.
 2. Install all dependencies from `requirements.txt` using `pip install -r /path/to/requirements.txt`
 3. Make sure you switch to your virtual environments. If you want to go with the one in the repository, you can simply enter the command `source server-env/bin/activate`
-2. From the `server` directory, `gunicorn server.wsgi:application` OR `heroku local`.
+4. From the `server` directory, `gunicorn server.wsgi:application` OR `heroku local`.
 
 ### Setting up the frontend:
+
 1. Change directory to `HotZone/web`.
 2. Install all dependencies using `yarn install`.
 3. Run the frontend using `yarn start`.
@@ -33,4 +37,4 @@ Alternatively, if you have created the latest build (i.e. you ran `yarn build` ,
 We use the `deployment` branch for deployment. To deploy, follow these steps:
 
 1. Navigate to the `web` directory and then run `yarn build`. This will place `build` folder in the server folder.
-2. With this, you are ready to deploy. Now, you can run `git subtree push --prefix server origin deployment --force`. This places the files required for the deplyment in the corresponding `deployment` branch. 
+2. With this, you are ready to deploy. Now, you can run `git subtree push --prefix server origin deployment --force`. This places the files required for the deplyment in the corresponding `deployment` branch.
