@@ -24,7 +24,7 @@ As expected, the first iteration of HotZone will handle the simple case where th
 ### Setting up the frontend:
 1. Change directory to `HotZone/web`.
 2. Install all dependencies using `yarn install`.
-3. Run the frontend using 'yarn start`.
+3. Run the frontend using `yarn start`.
 
 Alternatively, if you have created the latest build (i.e. you ran `yarn build` , you can access the frontend from the backend url as well.)
 
