@@ -37,4 +37,14 @@ Alternatively, if you have created the latest build (i.e. you ran `yarn build` ,
 We use the `deployment` branch for deployment. To deploy, follow these steps:
 
 1. Navigate to the `web` directory and then run `yarn build`. This will place `build` folder in the server folder.
-2. With this, you are ready to deploy. Now, you can run `git subtree push --prefix server origin deployment --force`. This places the files required for the deplyment in the corresponding `deployment` branch.
+2. With this, you are ready to deploy. Now, you can run from the directory `HotZone` (project root):
+   `` git push origin `git subtree split --prefix server`:deployment --force ``.
+   This places the files required for the deplyment in the corresponding `deployment` branch.
+   Sometimes, if this command is not run properly, you may end up deleting the remote `deployment` branch. If that happens, follow the next section.
+
+## If you end up deleting the deployment branch:
+
+1. You should firstly restore the `deployment` remote branch. You can do this by pushing the subtree to the `deployment` branch. For this, from the directory `HotZone` (project root) do:
+   `git subtree push --prefix server origin deployment`
+2. Navigate over to the Heroku dashboard and restore the CI/CD. Scroll down to Automatic Deploys and from the dropdown, select the `deployment` branch.
+3. You still have to manually deploy this once. So Scroll further down to the Manual deploy section and click on deploy.
