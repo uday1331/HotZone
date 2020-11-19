@@ -18,7 +18,7 @@ As expected, the first iteration of HotZone will handle the simple case where th
 ### Setting up the backend: 
 1. Change directory to `HotZone/server`.
 2. Install all dependencies from `requirements.txt` using `pip install -r /path/to/requirements.txt`
-3. Make sure you switch to yur
+3. Make sure you switch to your virtual environments. If you want to go with the one in the repository, you can simply enter the command `source server-env/bin/activate`
 2. From the `server` directory, `gunicorn server.wsgi:application` OR `heroku local`.
 
 ### Setting up the frontend:
