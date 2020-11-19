@@ -31,8 +31,10 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
+DEPLOYMENT_URL = env('DEPLOYMENT_URL')
+
 ALLOWED_HOSTS = [
-    'hotzone3035552765.herokuapp.com',
+    DEPLOYMENT_URL,
     'localhost'
 ]
 
@@ -69,8 +71,8 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ORIGIN_WHITELIST = [
-    'http://hotzone3035552765.herokuapp.com',
-    'https://hotzone3035552765.herokuapp.com',
+    'http://{}'.format(DEPLOYMENT_URL),
+    'https://{}'.format(DEPLOYMENT_URL),
     'http://localhost:3000',
     'https://localhost:3000',
     'http://localhost:5000',
