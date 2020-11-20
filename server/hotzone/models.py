@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+''' Location class '''
 class Location(models.Model):
     def __str__(self):
         return '{self.__class__.__name__}: ({self.x_coord}, {self.y_coord})'.format(self = self)
