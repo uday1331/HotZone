@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'requests',
-    #'gunicorn', #comment out if you don't have gunicorn
+    'gunicorn', #comment out if you don't have gunicorn
 ]
 
 MIDDLEWARE = [
