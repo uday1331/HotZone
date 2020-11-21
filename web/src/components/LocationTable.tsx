@@ -53,8 +53,7 @@ export const LocationTable: React.FC = () => {
       axios
         .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json`)
         .then((res) => {
-          const tempLocations = res.data;
-          setLocations(tempLocations);
+          setLocations(res?.data);
           setLoading(false);
         });
     }
