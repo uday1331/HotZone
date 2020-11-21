@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
-import { HomePage, LocationTable } from "./components";
+import { HomePage, LocationTable, PatientTable } from "./components";
 
 const App: FC = () => (
   <div className="App" style={{ height: "100vh" }}>
@@ -16,7 +16,7 @@ const App: FC = () => (
             <p>cases</p>
           </Route>
           <Route exact path="/patients">
-            <p>patients</p>
+            <PatientTable />
           </Route>
         </Switch>
       </HomePage>

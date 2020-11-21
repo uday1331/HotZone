@@ -1,5 +1,5 @@
-from .models import Location
-from .serializers import LocationSerializer
+from .models import Location, Patient
+from .serializers import LocationSerializer, PatientSerializer
 
 from rest_framework import generics, status
 from rest_framework.parsers import JSONParser
@@ -72,3 +72,6 @@ class LocationList(generics.ListCreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class PatientList(generics.ListAPIView):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
