@@ -173,6 +173,7 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+ahsans-venv
 
 # mkdocs documentation 
 /site 
