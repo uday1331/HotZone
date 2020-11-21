@@ -3,7 +3,8 @@ import { Layout, Menu } from "antd";
 import { EnvironmentOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Logo } from "./Logo";
-import { LocationTable } from "./LocationTable";
+import { LocationList } from "./LocationList";
+import { AddLocation } from "./AddLocation";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -26,7 +27,7 @@ export const HomePage: React.FC = () => (
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
-          <LocationTable />
+          <AddLocation />
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>Made with ♥️</Footer>
