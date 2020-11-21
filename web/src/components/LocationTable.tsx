@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Space, Spin, Table, Input, Alert } from "antd";
 import axios from "axios";
 
-const { Search } = Input;
+import { LocationType } from "../interfaces";
 
-interface ListType {
-  id: string;
-  x_coord: string;
-  y_coord: string;
-  name: string;
-  address: string;
-}
+const { Search } = Input;
 
 const columns = [
   {
@@ -41,7 +35,7 @@ const columns = [
 ];
 
 export const LocationTable: React.FC = () => {
-  const [locations, setLocations] = useState<Array<ListType>>([]);
+  const [locations, setLocations] = useState<Array<LocationType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [alert, setAlert] = useState<{
     type: "success" | "error";
@@ -50,12 +44,10 @@ export const LocationTable: React.FC = () => {
 
   useEffect(() => {
     if (loading) {
-      axios
-        .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json`)
-        .then((res) => {
-          setLocations(res?.data);
-          setLoading(false);
-        });
+      axios.get(`http://localhost:8000/hotzone/locations.json`).then((res) => {
+        setLocations(res?.data);
+        setLoading(false);
+      });
     }
   }, [loading]);
 
@@ -91,10 +83,7 @@ export const LocationTable: React.FC = () => {
             size="large"
             onSearch={(name) => {
               axios
-                .post(
-                  "https://group-q-hotzone.herokuapp.com/hotzone/locations/",
-                  { name }
-                )
+                .post("http://localhost:8000/hotzone/locations/", { name })
                 .then((res) => {
                   setLoading(true);
                   setAlert({
