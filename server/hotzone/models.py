@@ -58,7 +58,7 @@ class Case(models.Model):
 	confirmed = models.DateField()
 	origin = models.CharField(max_length=7, choices=Origin.choices, default=Origin.LOCAL)
 	patient = models.ForeignKey(Patient, on_delete=models.CASCADE)	
-	infected = models.ForeignKey(Virus, on_delete=models.CASCADE)
+	virus = models.ForeignKey(Virus, on_delete=models.CASCADE)
 	locations = models.ManyToManyField(Location, through='Visit') #many-to-many relationship set
 	
 	def __str__(self):
