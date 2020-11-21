@@ -31,6 +31,12 @@ export const AddLocation: React.FC = () => {
             .then((res) => {
               setOptions(res?.data);
             })
+            .catch((err) => {
+              notification["error"]({
+                message: "Error Finding Location",
+                description: err.response.data,
+              });
+            })
         }
       />
       <Radio.Group
