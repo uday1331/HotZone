@@ -1,4 +1,4 @@
 export { HomePage } from "./HomePage";
 export { Logo } from "./Logo";
-export { LocationTable } from "./LocationTable";
+export { LocationList } from "./LocationList";
 export { AddLocation } from "./AddLocation";
