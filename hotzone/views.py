@@ -8,8 +8,6 @@ from rest_framework.response import Response
 import requests as req
 import urllib.parse
 
-
-
 class LocationList(generics.ListCreateAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
@@ -19,9 +17,14 @@ class LocationList(generics.ListCreateAPIView):
 
         geo_data_response = req.get('https://geodata.gov.hk/gs/api/v1.0.0/locationSearch?q=' + urllib.parse.quote(input_name))
         if(not geo_data_response):
-           return Response("GeoData pertaining to '" + input_name + "' not found." , status=status.HTTP_404_NOT_FOUND)
+           return Response("GeoData pertaining to '" + input_name + "' not found." , status=status.HTTP_400_BAD_REQUEST)
 
         data = geo_data_response.json()
+
+        exists = Location.objects.filter(name= data[0].get('nameEN')).count()
+        if(exists):
+            return Response("Location Data pertaining to '" + input_name + "' exists in hotzone." , status=status.HTTP_400_BAD_REQUEST)
+
 
         location_data = {}
         location_data['x_coord'] = data[0].get('x')
