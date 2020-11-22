@@ -17,7 +17,7 @@ interface CaseType {
 const columns = [
   {
     title: "Pathogen",
-    dataIndex: "pathogen",
+    dataIndex: ["virus", "name"],
     key: "pathogen",
   },
   {
@@ -36,14 +36,9 @@ const columns = [
     key: "origin",
   },
   {
-    title: "First Name",
-    dataIndex: "patient_fname",
-    key: "patient_fname",
-  }, 
-  {
-    title: "Last Name",
-    dataIndex: "patient_lname",
-    key: "patient_lname",
+    title: "Patient Name",
+    dataIndex: ["patient", "name"],
+    key: "patient_name",
   },
 ];
 
