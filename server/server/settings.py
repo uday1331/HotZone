@@ -107,13 +107,6 @@ DATABASES = {
     'default': env.dj_db_url('DATABASE_URL')
 }
 
-# Authentication
-# https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-AUTHENTICATION_BACKENDS
-AUTHENTICATION_BACKENDS = [
-    'hotzone.auth.AuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
