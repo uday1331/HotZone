@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic', 
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'requests',
     'gunicorn', #comment out if you don't have gunicorn
@@ -136,6 +137,9 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
