@@ -1,5 +1,5 @@
-from .models import Location, Patient
-from .serializers import LocationSerializer, PatientSerializer
+from .models import Location, Patient, Case
+from .serializers import LocationSerializer, PatientSerializer, CaseSerializer
 
 from rest_framework import generics, status
 from rest_framework.parsers import JSONParser
@@ -75,3 +75,8 @@ class LocationList(generics.ListCreateAPIView):
 class PatientList(generics.ListAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
+
+
+class CasesList(generics.ListAPIView):
+    queryset = Case.objects.all()
+    serializer_class = CaseSerializer

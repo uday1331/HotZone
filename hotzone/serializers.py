@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Location, Patient
+from .models import Location, Patient, Case
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +10,8 @@ class PatientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
         fields = ['hkid', 'name', 'dob']
+
+class CaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Case
+        fields = ['case_no', 'confirmed', 'origin', 'patient', 'virus', 'locations']
