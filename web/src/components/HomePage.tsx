@@ -5,7 +5,7 @@ import { EnvironmentOutlined, UserOutlined } from "@ant-design/icons";
 import { Logo } from "./Logo";
 import { Link } from "react-router-dom";
 
-const { Content, Footer, Sider } = Layout;
+const { Content, Footer, Header } = Layout;
 
 interface HomePageProps {
   children: React.ReactNode;
@@ -13,9 +13,9 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ children }) => (
   <Layout style={{ height: "100%" }}>
-    <Sider breakpoint="lg">
-      <Logo />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+    <Header>
+      {/* <Logo /> */}
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
           <Menu.Item key="1" icon={<EnvironmentOutlined />}>
             <Link to="/">
               Locations
@@ -32,7 +32,7 @@ export const HomePage: React.FC<HomePageProps> = ({ children }) => (
             </Link>
           </Menu.Item>
       </Menu>
-    </Sider>
+    </Header>
     <Layout>
       <Content style={{ margin: "24px 16px 0" }}>
         <div
