@@ -12,7 +12,7 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ children }) => (
-  <Layout style={{ height: "100%" }}>
+  <Layout style={{ minHeight: "100vh" }}>
     <Header>
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           <Menu.Item key="0">

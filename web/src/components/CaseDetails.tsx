@@ -135,7 +135,7 @@ export const CaseDetails: React.FC = () => {
         <Collapse>
           {caseDetails.locations.map((visit: VisitType, index) => (
           <Panel 
-            key={`${index} ${visit.location.name} ${visit.date_from}`} 
+            key={`${visit.location.name} ${visit.date_from}`} 
             header={`${visit.location.name}`}
           >
             <Descriptions>
