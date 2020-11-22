@@ -6,3 +6,4 @@ export { PatientTable } from "./PatientTable";
 export { CasesList } from "./CasesList";
 export { CaseDetails } from "./CaseDetails";
 export { LoginPage } from "./LoginPage";
+export { Settings } from "./Settings";
