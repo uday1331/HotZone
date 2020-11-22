@@ -66,7 +66,7 @@ export const CaseDetails: React.FC = () => {
     const fetchCaseOne = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/hotzone/case/${case_no}`, {  
+        const response = await axios.get(`https://group-q-hotzone.herokuapp.com/hotzone/case/${case_no}`, {  
         headers: {
           "Authorization": `Token ${localStorage.getItem("token")}`
         }});
