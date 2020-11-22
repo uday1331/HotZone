@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Typography, Button, Card, Input, Radio, notification } from "antd";
+import {
+  Typography,
+  Button,
+  Card,
+  Input,
+  Radio,
+  notification,
+  Space,
+  Spin,
+  message,
+} from "antd";
 import axios from "axios";
 
 import { LocationType } from "../interfaces";
@@ -11,21 +21,22 @@ const { Meta } = Card;
 export const AddLocation: React.FC = () => {
   const [options, setOptions] = useState<Array<LocationType>>([]);
   const [selected, setSelected] = useState<number | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [addLoading, setAddLoading] = useState<boolean>(false);
+  const [listLoading, setListLoading] = useState<boolean>(false);
 
   return (
     <>
       <Title level={2}>Add location to HotZone</Title>
       <Search
         placeholder="Enter Location Name"
-        allowClear
         loading={false}
         enterButton="Search Location"
         size="large"
         style={{
           marginBottom: 40,
         }}
-        onSearch={async (query) =>
+        onSearch={async (query) => {
+          setListLoading(true);
           await axios
             .get(
               `https://group-q-hotzone.herokuapp.com/hotzone/locations/${query}`,
@@ -39,38 +50,18 @@ export const AddLocation: React.FC = () => {
               setOptions(res?.data);
             })
             .catch((err) => {
-              notification["error"]({
-                message: "Error Finding Location",
-                description: err.response.data,
-              });
-            })
-        }
+              message.error(`Error Finding Location`);
+            });
+          setListLoading(false);
+        }}
       />
-      <Radio.Group
-        onChange={(e) => setSelected(e.target.value)}
-        value={selected}
-        style={{ width: "100%" }}
-      >
-        {options.map(({ name, address, x_coord, y_coord }, idx) => (
-          <Card key={idx}>
-            <Meta
-              avatar={
-                <Radio value={idx}>
-                  {name}
-                  {address && `, ${address}`} - {x_coord}, {y_coord}
-                </Radio>
-              }
-            />
-          </Card>
-        ))}
-      </Radio.Group>
       {selected !== null && (
         <Button
           type="primary"
-          style={{ width: "100%" }}
-          loading={loading}
+          style={{ width: "100%", marginBottom: 40 }}
+          loading={addLoading}
           onClick={async () => {
-            setLoading(true);
+            setAddLoading(true);
             await axios
               .post(
                 "https://group-q-hotzone.herokuapp.com/hotzone/locations/",
@@ -82,24 +73,45 @@ export const AddLocation: React.FC = () => {
                 }
               )
               .then((res) => {
-                notification["success"]({
-                  message: "Location Created",
-                  description: JSON.stringify(res.data),
-                });
+                message.success(
+                  `Location Created: ${JSON.stringify(res.data)}`
+                );
                 setOptions([]);
                 setSelected(null);
               })
               .catch((err) => {
-                notification["error"]({
-                  message: "Error Creating Location",
-                  description: err.response.data,
-                });
+                message.error(`Location Creation Error: ${err.response.data}`);
+                setSelected(null);
               });
-            setLoading(false);
+            setAddLoading(false);
           }}
         >
           Create Location
         </Button>
+      )}
+      {listLoading ? (
+        <Space size="middle">
+          <Spin size="large" />
+        </Space>
+      ) : (
+        <Radio.Group
+          onChange={(e) => setSelected(e.target.value)}
+          value={selected}
+          style={{ width: "100%" }}
+        >
+          {options?.map(({ name, address, x_coord, y_coord }, idx) => (
+            <Card key={idx}>
+              <Meta
+                avatar={
+                  <Radio value={idx}>
+                    {name}
+                    {address && `, ${address}`} - {x_coord}, {y_coord}
+                  </Radio>
+                }
+              />
+            </Card>
+          ))}
+        </Radio.Group>
       )}
     </>
   );
