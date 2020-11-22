@@ -13,25 +13,25 @@ class AuthenticationBackend(BaseBackend):
 
         try:
             staff = User.objects.get(pk=username)
-            if check_password(password, staff.password)
+            if check_password(password, staff.password):
                 return staff
-        return None
+        except User.DoesNotExist:
+            pass
 
     # Reset password method
     # kwargs should include the username and NEW password
-
     def reset_password(self, request, **kwargs):
         username = kwargs['username']
         new_password = kwargs['password']
 
         try:
-            user = User.Objects.get(pk=username)
+            user = User.objects.get(pk=username)
             if user:
                 user.set_password(new_password)
                 user.save()
                 return 0
-        return None
-
+        except User.DoesNotExist:
+            pass
 
     # Returns the user object of a given username
     def get_user(self, username):
