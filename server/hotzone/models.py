@@ -3,13 +3,13 @@ from django.utils import timezone
 
 ''' Location class '''
 class Location(models.Model):
-    def __str__(self):
-        return '{self.__class__.__name__}: ({self.x_coord}, {self.y_coord})'.format(self = self)
-
     x_coord = models.FloatField('X Co-ordinate')
     y_coord = models.FloatField('Y Co-ordinate')
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=250, blank = True)
+
+    def __str__(self):
+        return '{} at {}'.format(self.name, self.address)
 
 ''' Disease class '''
 class Virus(models.Model):
@@ -60,9 +60,9 @@ class Case(models.Model):
 	patient = models.ForeignKey(Patient, on_delete=models.CASCADE)	
 	virus = models.ForeignKey(Virus, on_delete=models.CASCADE)
 	locations = models.ManyToManyField(Location, through='Visit') #many-to-many relationship set
-	
+
 	def __str__(self):
-		return self.case_no
+		return f"Case {self.case_no}; Patient: {self.patient}"
 
 ''' Many-To-Many relationship between case and location '''
 class Visit(models.Model):
@@ -79,3 +79,4 @@ class Visit(models.Model):
 	category = models.CharField(max_length=9, choices=Category.choices, default=Category.VISIT)		
 
 # Hi to whoever grading this: Listen to this https://www.youtube.com/watch?v=ckRSn2zWt_o
+# Pretty good song -A

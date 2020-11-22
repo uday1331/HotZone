@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card, Input, Radio, notification } from "antd";
+import { Typography, Button, Card, Input, Radio, notification } from "antd";
 import axios from "axios";
 
 import { LocationType } from "../interfaces";
 
+const { Title } = Typography;
 const { Search } = Input;
 const { Meta } = Card;
 
@@ -14,6 +15,7 @@ export const AddLocation: React.FC = () => {
 
   return (
     <>
+      <Title level={2}>Add location to HotZone</Title>
       <Search
         placeholder="Enter Location Name"
         allowClear

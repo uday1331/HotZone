@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Typography } from "antd";
 import { Space, Spin, Table } from "antd";
+
+const { Title } = Typography;
 
 interface PatientType {
   hkid: string;
@@ -65,11 +68,13 @@ export const PatientTable: React.FC = () => {
 
   return (
     patients && (
-      <Table
-        dataSource={patients}
-        columns={columns}
-      />
+      <>
+        <Title level={2}>All patients</Title>
+          <Table
+            dataSource={patients}
+            columns={columns}
+          />
+      </>
     )
-  )
-  
+  );
 }
