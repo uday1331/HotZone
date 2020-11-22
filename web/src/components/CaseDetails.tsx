@@ -27,7 +27,10 @@ export const CaseDetails: React.FC = () => {
   useEffect(() => {
     const fetchCaseOne = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/hotzone/case/${case_no}`);
+        const response = await axios.get(`http://localhost:5000/hotzone/case/${case_no}`, {  
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("token")}`
+        }});
         const data: CaseType = response.data;
         setCaseDetails(data);
         setError("");

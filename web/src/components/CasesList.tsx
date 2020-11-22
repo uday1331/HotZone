@@ -59,7 +59,11 @@ export const CasesList: React.FC = () => {
     const fetchCasesList = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://group-q-hotzone.herokuapp.com/hotzone/cases.json");
+        const response = await axios.get("https://group-q-hotzone.herokuapp.com/hotzone/cases.json" , {
+          headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+          }
+        });
         const casesList: Array<CaseType> = response.data;
         setCases(casesList);
         setLoading(false);
