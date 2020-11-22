@@ -9,6 +9,7 @@ urlpatterns = [
     path('locations/<str:name>/', views.LocationSearchFromGeoData.as_view()),
     path('patients/', views.PatientList.as_view()),
     path('cases/', views.CasesList.as_view()),
+    path('case/<int:case_no>/', views.CaseOne.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

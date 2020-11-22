@@ -1,8 +1,17 @@
 import React, { FC, useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { Layout, Typography, Breadcrumb } from "antd";
+import { 
+  Layout, 
+  Typography,
+  Breadcrumb,
+  Descriptions,
+  Space,
+  Spin,
+  Collapse,
+} from "antd";
 
+const { Panel } = Collapse;
 const { Content } = Layout;
 const { Title } = Typography; 
 
@@ -10,29 +19,62 @@ interface ParamType {
   case_no: string
 }
 
+interface VirusType {
+  disease: string;
+  max_infectious: number;
+  name: string;
+}
+
+interface PatientType {
+  dob: string;
+  hkid: string;
+  name: string;
+}
+
+interface VisitType {
+  case: string;
+  category: string;
+  date_from: string;
+  date_to: string;
+  location: LocationType;
+}
+
+interface LocationType {
+  address: string;
+  id: number;
+  name: string;
+  x_coord: number;
+  y_coord: number;
+}
+
 interface CaseType {
-  virus: Object;
+  virus: VirusType;
   case_no: number;
   confirmed: Date;
   origin: string;
-  patient: Object;
-  locations: Object;
+  patient: PatientType;
+  locations: Array<VisitType>;
 }
 
 export const CaseDetails: React.FC = () => {
   const { case_no } = useParams<ParamType>();
   const [caseDetails, setCaseDetails] = useState<CaseType>({} as CaseType);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState("");
   
   useEffect(() => {
     const fetchCaseOne = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(`http://localhost:5000/hotzone/case/${case_no}`);
         const data: CaseType = response.data;
+        console.log(data);
         setCaseDetails(data);
+        setLoading(false);
         setError("");
       } catch(e) {
         setCaseDetails({} as CaseType);
+        setLoading(false);
         setError("failed to fetch case data");
       }
     }
@@ -44,8 +86,16 @@ export const CaseDetails: React.FC = () => {
     return <p>{error}</p>
   }
 
+  if (loading) {
+    return (
+      <Space size="middle">
+        <Spin size="large" />
+      </Space>
+    );
+  }
+
   return (
-    caseDetails && (
+    caseDetails.confirmed && (
       <Content style={{ textAlign: 'left' }}>
         <Breadcrumb>
           <Breadcrumb.Item>
@@ -56,6 +106,52 @@ export const CaseDetails: React.FC = () => {
           </Breadcrumb.Item>
         </Breadcrumb>
         <Title level={2}>{`Case details`}</Title>
+        <Descriptions title="Case details">
+          <Descriptions.Item label="Infecting pathogen">
+            {caseDetails.virus.name}
+          </Descriptions.Item>
+          <Descriptions.Item label="Confirmed date">
+            {caseDetails.confirmed}
+          </Descriptions.Item>
+          <Descriptions.Item label="Origin">
+            {caseDetails.origin === "I" ? "Imported" : "Local"}
+          </Descriptions.Item>
+        </Descriptions>
+        <Descriptions title="Patient">
+          <Descriptions.Item label="HKID">
+            {caseDetails.patient.hkid}
+          </Descriptions.Item>
+          <Descriptions.Item label="Name">
+            {caseDetails.patient.name}
+          </Descriptions.Item>
+          <Descriptions.Item label="Date of birth">
+            {caseDetails.patient.dob}
+          </Descriptions.Item>
+        </Descriptions>
+        <Title level={3}>Locations visited</Title>
+        <Collapse>
+          {caseDetails.locations.map((visit: VisitType, index) => (
+          <Panel 
+            key={`${index} ${visit.location.name} ${visit.date_from}`} 
+            header={`${visit.location.name}`}
+          >
+            <Descriptions>
+              <Descriptions.Item label="Location ID">
+                {visit.location.id}
+              </Descriptions.Item>
+              <Descriptions.Item label="Name">
+                {visit.location.address}
+              </Descriptions.Item>
+              <Descriptions.Item label="X coordinates">
+                {visit.location.x_coord}
+              </Descriptions.Item>
+              <Descriptions.Item label="Y coordinates">
+                {visit.location.y_coord}
+              </Descriptions.Item>
+            </Descriptions>
+          </Panel>
+          ))}
+        </Collapse>
       </Content>
     )
   );
