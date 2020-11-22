@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { Logo } from "./Logo";
 
@@ -14,10 +14,13 @@ export const LoginPage: React.FC = () => {
   const onFinish = async ({ username, password }: ILogin) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:8000/hotzone/login/", {
-        username,
-        password
-      });
+      const response = await axios.post(
+        "https://group-q-hotzone.herokuapp.com/hotzone/login/",
+        {
+          username,
+          password,
+        }
+      );
       const token = response.data.token;
       if (token) {
         localStorage.setItem("token", token);
@@ -27,11 +30,11 @@ export const LoginPage: React.FC = () => {
       //reroute to home page
       document.location.href = "/";
     } catch (e) {
-       message.error("failed to login"); 
+      message.error("failed to login");
     }
 
     setLoading(false);
-  }
+  };
 
   return (
     <>
@@ -44,7 +47,7 @@ export const LoginPage: React.FC = () => {
         <Form.Item
           label="Username"
           name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input />
         </Form.Item>
@@ -52,7 +55,7 @@ export const LoginPage: React.FC = () => {
         <Form.Item
           label="Password"
           name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[{ required: true, message: "Please input your password!" }]}
         >
           <Input.Password />
         </Form.Item>
