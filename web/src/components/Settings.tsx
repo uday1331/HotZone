@@ -6,6 +6,7 @@ const { Title } = Typography;
 
 export const Settings: React.FC = () => {
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   return (
     <div>
@@ -15,6 +16,7 @@ export const Settings: React.FC = () => {
       }} />
       <Button style={{ marginTop: "12px" }} type="primary" onClick={async () => {
         try {
+          setLoading(true);
           if (newPassword && newPassword.length > 3) {
             await axios.put("https://group-q-hotzone.herokuapp.com/hotzone/change_password/", {
             new_password: newPassword
@@ -31,7 +33,8 @@ export const Settings: React.FC = () => {
         } catch (e) {
           message.error("failed to change password");
         }
-      }}>Change</Button>
+        setLoading(false);
+      }} loading={loading}>Change</Button>
     </div>
   )
 }
