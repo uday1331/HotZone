@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import { Typography } from "antd";
 import { Space, Spin, Table } from "antd";
+
+const { Title } = Typography; 
 
 interface CaseType {
   virus: string;
@@ -80,10 +82,13 @@ export const CasesList: React.FC = () => {
 
   return (
     cases && (
-      <Table
-        dataSource={cases}
-        columns={columns}
-      />
+      <>
+        <Title level={2}>All cases</Title>
+          <Table
+            dataSource={cases}
+            columns={columns}
+          />
+      </>
     )
   );
 }

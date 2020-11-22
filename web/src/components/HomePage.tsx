@@ -14,8 +14,10 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ children }) => (
   <Layout style={{ height: "100%" }}>
     <Header>
-      {/* <Logo /> */}
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+          <Menu.Item key="0">
+            <Logo />
+          </Menu.Item>
           <Menu.Item key="1" icon={<EnvironmentOutlined />}>
             <Link to="/">
               Locations
