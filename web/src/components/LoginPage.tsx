@@ -15,7 +15,7 @@ export const LoginPage: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://group-q-hotzone.herokuapp.com/hotzone/login/",
+        "https://group-q-hotzone.herokuapp.com/login/",
         {
           username,
           password,
