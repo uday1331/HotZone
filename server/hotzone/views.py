@@ -90,3 +90,10 @@ class CasesList(generics.ListAPIView):
     
     queryset = Case.objects.all()
     serializer_class = CaseSerializer
+
+class CaseOne(generics.RetrieveAPIView):
+    def get(self, request, case_no):
+        queryset = Case.objects.filter(case_no=case_no)
+        serializer = CaseSerializer(queryset, many=True)
+
+        return Response(serializer.data[0], status=status.HTTP_200_OK)
