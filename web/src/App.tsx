@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
-import { HomePage, AddLocation, PatientTable, CasesList, LoginPage, CaseDetails } from "./components";
+import { HomePage, AddLocation, PatientTable, CasesList, LoginPage, CaseDetails, Settings } from "./components";
 
 const NavBarLayout = () => {
   if (!localStorage.getItem("token")) {
@@ -23,6 +23,9 @@ const NavBarLayout = () => {
         </Route>
         <Route exact path="/patients">
           <PatientTable />
+        </Route>
+        <Route exact path="/settings">
+          <Settings />
         </Route>
       </Switch>
     </HomePage>

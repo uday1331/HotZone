@@ -33,6 +33,11 @@ export const HomePage: React.FC<HomePageProps> = ({ children }) => (
               Patients
             </Link>
           </Menu.Item>
+          <Menu.Item key="4" icon={<UserOutlined />}>
+            <Link to="/settings">
+              Settings
+            </Link>
+          </Menu.Item>
       </Menu>
     </Header>
     <Layout>
