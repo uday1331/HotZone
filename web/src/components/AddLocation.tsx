@@ -28,8 +28,12 @@ export const AddLocation: React.FC = () => {
         onSearch={async (query) =>
           await axios
             .get(
-              `https://group-q-hotzone.herokuapp.com/hotzone/locations/${query}`
-            )
+              `http://localhost:8000/hotzone/locations/${query}`
+              , {
+                headers: {
+                  "Authorization": `Token ${localStorage.getItem("token")}`
+                }
+              })
             .then((res) => {
               setOptions(res?.data);
             })
@@ -68,8 +72,12 @@ export const AddLocation: React.FC = () => {
             setLoading(true);
             await axios
               .post(
-                "https://group-q-hotzone.herokuapp.com/hotzone/locations/",
-                options[selected]
+                "http://localhost:8000/hotzone/locations/",
+                options[selected], {
+                  headers: {
+                    "Authorization": `Token ${localStorage.getItem("token")}`
+                  }
+                }
               )
               .then((res) => {
                 notification["success"]({

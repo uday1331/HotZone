@@ -1,7 +1,11 @@
 import React from "react";
 
-export const Logo = () => (
-  <h2 className="logo" style={{ display: "inline", color: "white" }}>
+interface ILogoProps {
+  color?: string;
+}
+
+export const Logo: React.FC<ILogoProps> = ({ color = "white" }) => (
+  <h2 className="logo" style={{ color, padding: 20 }}>
     HotZ🎯ne
   </h2>
 );
