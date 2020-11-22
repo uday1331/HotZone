@@ -13,35 +13,27 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ children }) => {
   const location = useLocation();
-  const activeNav = location.pathname.split("/")[1] || "locations";
+  const activeNav = location.pathname.split("/")[1] || "cases";
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Header>
         <Menu theme="dark" mode="horizontal" selectedKeys={[activeNav]}>
-            <Menu.Item key="0">
-              <Logo />
-            </Menu.Item>
-            <Menu.Item key="locations" icon={<EnvironmentOutlined />}>
-              <Link to="/">
-                Locations
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="cases" icon={<UserOutlined />}>
-              <Link to="/cases">
-                Cases
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="patients" icon={<UserOutlined />}>
-              <Link to="/patients">
-                Patients
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="settings" icon={<UserOutlined />}>
-              <Link to="/settings">
-                Settings
-              </Link>
-            </Menu.Item>
+          <Menu.Item key="0">
+            <Logo />
+          </Menu.Item>
+          <Menu.Item key="cases" icon={<UserOutlined />}>
+            <Link to="/">Cases</Link>
+          </Menu.Item>
+          <Menu.Item key="locations" icon={<EnvironmentOutlined />}>
+            <Link to="/locations">Locations</Link>
+          </Menu.Item>
+          <Menu.Item key="patients" icon={<UserOutlined />}>
+            <Link to="/patients">Patients</Link>
+          </Menu.Item>
+          <Menu.Item key="settings" icon={<UserOutlined />}>
+            <Link to="/settings">Settings</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Layout>
@@ -56,5 +48,5 @@ export const HomePage: React.FC<HomePageProps> = ({ children }) => {
         <Footer style={{ textAlign: "center" }}>Made with ♥️</Footer>
       </Layout>
     </Layout>
-  )
+  );
 };
