@@ -98,6 +98,7 @@ class CaseOne(generics.RetrieveAPIView):
         serializer = CaseSerializer(queryset, many=True)
 
         return Response(serializer.data[0], status=status.HTTP_200_OK)
+
 class ChangePassword(APIView):
     permission_classes = (IsAuthenticated,)
 
