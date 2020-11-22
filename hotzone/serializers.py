@@ -33,6 +33,7 @@ class CaseSerializer(serializers.ModelSerializer):
     patient = serializers.PrimaryKeyRelatedField(read_only=True)
     virus = serializers.PrimaryKeyRelatedField(read_only=True)
     locations = VisitSerializer(source="visit_set", many=True)
+    
     class Meta:
         model = Case
         fields = ['case_no', 'confirmed', 'origin', 'patient', 'virus', 'locations']
