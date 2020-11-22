@@ -12,7 +12,7 @@ export const LocationList: React.FC = () => {
   useEffect(() => {
     if (loading) {
       axios
-        .get(`http://localhost:8000/hotzone/locations.json` , {
+        .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json` , {
           headers: {
             "Authorization": `Token ${localStorage.getItem("token")}`
           }

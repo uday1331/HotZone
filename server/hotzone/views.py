@@ -86,5 +86,7 @@ class PatientList(generics.ListAPIView):
 
 
 class CasesList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    
     queryset = Case.objects.all()
     serializer_class = CaseSerializer
