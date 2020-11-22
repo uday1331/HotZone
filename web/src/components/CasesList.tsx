@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Typography } from "antd";
 import { Space, Spin, Table } from "antd";
 
 const { Title } = Typography; 
 
 interface CaseType {
-  virus: string;
+  virus: Object;
   case_no: number;
   confirmed: Date;
   origin: string;
-  patient_hkid: string;
-  patient_fname: string;
-  patient_lname: string;
-  patient_locations_count: number;
+  patient: Object;
+  locations: Object;
 }
 
 const columns = [
@@ -42,6 +41,13 @@ const columns = [
     dataIndex: ["patient", "name"],
     key: "patient_name",
   },
+  {
+    title: "Actions",
+    key: 'actions',
+    render: (text: string, record: any) => (
+      <Link to={`/case/${record.case_no}`}>Details</Link>
+    )
+  }
 ];
 
 export const CasesList: React.FC = () => {

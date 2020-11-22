@@ -4,4 +4,5 @@ export { LocationList } from "./LocationList";
 export { AddLocation } from "./AddLocation";
 export { PatientTable } from "./PatientTable";
 export { CasesList } from "./CasesList";
+export { CaseDetails } from "./CaseDetails";
 export { LoginPage } from "./LoginPage";
