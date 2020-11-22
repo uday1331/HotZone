@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Space, Spin, Table } from "antd";
+import { Link } from "react-router-dom";
+import { Button, Space, Spin, Table } from "antd";
 import axios from "axios";
+import { PlusOutlined } from "@ant-design/icons";
 
 import { LocationType } from "../interfaces";
 import { locationListColumns } from "../utils";
@@ -12,10 +14,10 @@ export const LocationList: React.FC = () => {
   useEffect(() => {
     if (loading) {
       axios
-        .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json` , {
+        .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json`, {
           headers: {
-            "Authorization": `Token ${localStorage.getItem("token")}`
-          }
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
         })
         .then((res) => {
           setLocations(res?.data);
@@ -31,5 +33,22 @@ export const LocationList: React.FC = () => {
       </Space>
     );
 
-  return <Table dataSource={locations} columns={locationListColumns} />;
+  return (
+    <>
+      <Link to="/addlocation">
+        <Button
+          type="primary"
+          shape="round"
+          icon={<PlusOutlined />}
+          size="large"
+          style={{
+            marginBottom: 40,
+          }}
+        >
+          Add Location
+        </Button>
+      </Link>
+      <Table dataSource={locations} columns={locationListColumns} />
+    </>
+  );
 };
