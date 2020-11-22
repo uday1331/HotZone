@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 
 import requests as req
 import urllib.parse
@@ -97,3 +98,24 @@ class CaseOne(generics.RetrieveAPIView):
         serializer = CaseSerializer(queryset, many=True)
 
         return Response(serializer.data[0], status=status.HTTP_200_OK)
+class ChangePassword(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def put(self, request):
+        try:
+            new_password = request.data.get("new_password")
+            auth_header = request.META['HTTP_AUTHORIZATION']
+            token = auth_header.split(" ")[1]
+            user = Token.objects.get(key=token).user
+            user.set_password(new_password)
+            user.save()
+            return Response (
+                "password changed successfully",
+                status=status.HTTP_200_OK
+            )
+        except:
+            return Response (
+                "failed to reset password",
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
