@@ -71,7 +71,9 @@ export const CaseDetails: React.FC = () => {
           "Authorization": `Token ${localStorage.getItem("token")}`
         }});
         const data: CaseType = response.data;
-        console.log(data);
+        data.locations.sort((v1: VisitType, v2: VisitType) => {
+          return v1.date_from > v2.date_to ? 1 : -1
+        })
         setCaseDetails(data);
         setLoading(false);
         setError("");
@@ -136,7 +138,7 @@ export const CaseDetails: React.FC = () => {
           {caseDetails.locations.map((visit: VisitType, index) => (
           <Panel 
             key={`${visit.location.name} ${visit.date_from}`} 
-            header={`${visit.location.name} | From: ${visit.date_from} - To:${visit.date_to}`}
+            header={`${visit.location.name} | From: ${visit.date_from} - To: ${visit.date_to}`}
           >
             <Descriptions>
               <Descriptions.Item label="Location ID">
