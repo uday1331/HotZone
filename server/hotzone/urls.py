@@ -12,6 +12,10 @@ urlpatterns = [
     path('patients/', views.PatientList.as_view()),
     path('cases/', views.CasesList.as_view()),
     path('case/<int:case_no>/', views.CaseOne.as_view()),
+<<<<<<< HEAD
+=======
+    path('change_password/', views.ChangePassword.as_view()),
+>>>>>>> b5e0ffc31f8df30ad9652bc7bd87c2ceb1ecb67f
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

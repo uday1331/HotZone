@@ -136,13 +136,13 @@ export const CaseDetails: React.FC = () => {
           {caseDetails.locations.map((visit: VisitType, index) => (
           <Panel 
             key={`${visit.location.name} ${visit.date_from}`} 
-            header={`${visit.location.name}`}
+            header={`${visit.location.name} | From: ${visit.date_from} - To:${visit.date_to}`}
           >
             <Descriptions>
               <Descriptions.Item label="Location ID">
                 {visit.location.id}
               </Descriptions.Item>
-              <Descriptions.Item label="Name">
+              <Descriptions.Item label="Address">
                 {visit.location.address}
               </Descriptions.Item>
               <Descriptions.Item label="X coordinates">
