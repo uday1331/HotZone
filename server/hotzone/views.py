@@ -6,6 +6,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from rest_framework.permissions import IsAuthenticated
 
 import requests as req
 import urllib.parse
@@ -19,12 +20,15 @@ def geoDataToLocationModel(geo_data):
     
     return location_data
 
-
 class LocationDetail(generics.RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
+
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
 class LocationSearchFromGeoData(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, name):
         query_location_name = name
         geo_data_response = req.get(
@@ -48,6 +52,8 @@ class LocationSearchFromGeoData(APIView):
 
 
 class LocationList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
@@ -73,10 +79,14 @@ class LocationList(generics.ListCreateAPIView):
 
 
 class PatientList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
 
 class CasesList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    
     queryset = Case.objects.all()
     serializer_class = CaseSerializer

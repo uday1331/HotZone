@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic', 
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'requests',
     'gunicorn', #comment out if you don't have gunicorn
@@ -106,13 +107,6 @@ DATABASES = {
     'default': env.dj_db_url('DATABASE_URL')
 }
 
-# Authentication
-# https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-AUTHENTICATION_BACKENDS
-AUTHENTICATION_BACKENDS = [
-    'hotzone.auth.AuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -136,6 +130,9 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
