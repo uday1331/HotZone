@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Typography } from "antd";
 import axios from "axios";
 import { Logo } from "./Logo";
+import { Link } from "react-router-dom";
+
+const { Link: LinkText } = Typography;
 
 interface ILogin {
   username: string;
@@ -66,6 +69,9 @@ export const LoginPage: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
+      <a href="https://group-q-hotzone.herokuapp.com/password-reset/">
+        Forgot Password?
+      </a>
     </>
   );
 };
