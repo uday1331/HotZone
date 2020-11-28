@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "antd";
 import { Space, Spin, Table } from "antd";
 
-const { Title } = Typography; 
+const { Title } = Typography;
 
 interface CaseType {
   virus: Object;
@@ -43,43 +43,46 @@ const columns = [
   },
   {
     title: "Actions",
-    key: 'actions',
+    key: "actions",
     render: (text: string, record: any) => (
       <Link to={`/case/${record.case_no}`}>Details</Link>
-    )
-  }
+    ),
+  },
 ];
 
 export const CasesList: React.FC = () => {
   const [cases, setCases] = useState<Array<CaseType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchCasesList = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://group-q-hotzone.herokuapp.com/hotzone/cases.json" , {
-          headers: {
-            "Authorization": `Token ${localStorage.getItem("token")}`
+        const response = await axios.get(
+          "https://hotzone-group-q-final.herokuapp.com/hotzone/cases.json",
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
           }
-        });
+        );
         const casesList: Array<CaseType> = response.data;
         setCases(casesList);
         setLoading(false);
         setError("");
-      } catch(e) {
+      } catch (e) {
         setCases([]);
         setError("failed to fetch cases data");
         setLoading(false);
       }
-    }
+    };
 
     fetchCasesList();
-  }, [])
+  }, []);
 
   if (error && error !== "") {
-    return <p>{error}</p>
+    return <p>{error}</p>;
   }
 
   if (loading) {
@@ -94,11 +97,8 @@ export const CasesList: React.FC = () => {
     cases && (
       <>
         <Title level={2}>All cases</Title>
-          <Table
-            dataSource={cases}
-            columns={columns}
-          />
+        <Table dataSource={cases} columns={columns} />
       </>
     )
   );
-}
+};

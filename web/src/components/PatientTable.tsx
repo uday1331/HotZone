@@ -38,28 +38,30 @@ export const PatientTable: React.FC = () => {
     const fetchPatientList = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://group-q-hotzone.herokuapp.com/hotzone/patients.json", {
-          headers: {
-            "Authorization": `Token ${localStorage.getItem("token")}`
+        const response = await axios.get(
+          "https://hotzone-group-q-final.herokuapp.com/hotzone/patients.json",
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
           }
-        });
+        );
         const patientList: Array<PatientType> = response.data;
         setPatients(patientList);
         setLoading(false);
         setError("");
-      } catch(e) {
+      } catch (e) {
         setPatients([]);
         setError("failed to fetch patients data");
         setLoading(false);
       }
-    }
+    };
 
     fetchPatientList();
-
   }, []);
 
   if (error && error !== "") {
-    return <p>{error}</p>
+    return <p>{error}</p>;
   }
 
   if (loading) {
@@ -74,11 +76,8 @@ export const PatientTable: React.FC = () => {
     patients && (
       <>
         <Title level={2}>All patients</Title>
-          <Table
-            dataSource={patients}
-            columns={columns}
-          />
+        <Table dataSource={patients} columns={columns} />
       </>
     )
   );
-}
+};

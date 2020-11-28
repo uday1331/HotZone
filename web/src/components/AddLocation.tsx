@@ -39,7 +39,7 @@ export const AddLocation: React.FC = () => {
           setListLoading(true);
           await axios
             .get(
-              `https://group-q-hotzone.herokuapp.com/hotzone/locations/${query}`,
+              `https://hotzone-group-q-final.herokuapp.com/hotzone/locations/${query}`,
               {
                 headers: {
                   Authorization: `Token ${localStorage.getItem("token")}`,
@@ -64,7 +64,7 @@ export const AddLocation: React.FC = () => {
             setAddLoading(true);
             await axios
               .post(
-                "https://group-q-hotzone.herokuapp.com/hotzone/locations/",
+                "https://hotzone-group-q-final.herokuapp.com/hotzone/locations/",
                 options[selected],
                 {
                   headers: {

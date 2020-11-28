@@ -1,7 +1,8 @@
 # HotZone
+
 ## Deployed at:
 
-https://group-q-hotzone.herokuapp.com/
+https://hotzone-group-q-final.herokuapp.com/
 
 ## Iteration 2:
 
@@ -18,7 +19,7 @@ As expected, the first iteration of HotZone will handle the simple case where th
 
 ### Setting up the backend:
 
-:warning:  Make sure you have a `.env` file in your local `HotZone` directory (project root). This should contain the following environment variables: DEPLOYMENT_URL, DATABASE_URL, DEBUG & SECRET_KEY.
+:warning: Make sure you have a `.env` file in your local `HotZone` directory (project root). This should contain the following environment variables: DEPLOYMENT_URL, DATABASE_URL, DEBUG & SECRET_KEY.
 
 1. Change directory to `HotZone/server`.
 2. Install all dependencies from `requirements.txt` using `pip install -r /path/to/requirements.txt`

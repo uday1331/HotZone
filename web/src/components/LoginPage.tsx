@@ -18,7 +18,7 @@ export const LoginPage: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://group-q-hotzone.herokuapp.com/login/",
+        "https://hotzone-group-q-final.herokuapp.com/login/",
         {
           username,
           password,
@@ -69,7 +69,7 @@ export const LoginPage: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-      <a href="https://group-q-hotzone.herokuapp.com/password-reset/">
+      <a href="https://hotzone-group-q-final.herokuapp.com/password-reset/">
         Forgot Password?
       </a>
     </>

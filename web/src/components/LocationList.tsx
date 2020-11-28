@@ -14,11 +14,14 @@ export const LocationList: React.FC = () => {
   useEffect(() => {
     if (loading) {
       axios
-        .get(`https://group-q-hotzone.herokuapp.com/hotzone/locations.json`, {
-          headers: {
-            Authorization: `Token ${localStorage.getItem("token")}`,
-          },
-        })
+        .get(
+          `https://hotzone-group-q-final.herokuapp.com/hotzone/locations.json`,
+          {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
+          }
+        )
         .then((res) => {
           setLocations(res?.data);
           setLoading(false);

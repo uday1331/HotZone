@@ -11,30 +11,45 @@ export const Settings: React.FC = () => {
   return (
     <div>
       <Title>Change Password</Title>
-      <Input placeholder="new password" type="password" onChange={(e) => {
-        setNewPassword(e.target.value);
-      }} />
-      <Button style={{ marginTop: "12px" }} type="primary" onClick={async () => {
-        try {
-          setLoading(true);
-          if (newPassword && newPassword.length > 3) {
-            await axios.put("https://group-q-hotzone.herokuapp.com/hotzone/change_password/", {
-            new_password: newPassword
-            } , {
-              headers: {
-                "Authorization": `Token ${localStorage.getItem("token")}`
-              }
-            });
-            message.success("password changed successfully!");
-            setNewPassword("");
-          } else {
-            message.error("password is too short or blank!");
+      <Input
+        placeholder="new password"
+        type="password"
+        onChange={(e) => {
+          setNewPassword(e.target.value);
+        }}
+      />
+      <Button
+        style={{ marginTop: "12px" }}
+        type="primary"
+        onClick={async () => {
+          try {
+            setLoading(true);
+            if (newPassword && newPassword.length > 3) {
+              await axios.put(
+                "https://hotzone-group-q-final.herokuapp.com/hotzone/change_password/",
+                {
+                  new_password: newPassword,
+                },
+                {
+                  headers: {
+                    Authorization: `Token ${localStorage.getItem("token")}`,
+                  },
+                }
+              );
+              message.success("password changed successfully!");
+              setNewPassword("");
+            } else {
+              message.error("password is too short or blank!");
+            }
+          } catch (e) {
+            message.error("failed to change password");
           }
-        } catch (e) {
-          message.error("failed to change password");
-        }
-        setLoading(false);
-      }} loading={loading}>Change</Button>
+          setLoading(false);
+        }}
+        loading={loading}
+      >
+        Change
+      </Button>
     </div>
-  )
-}
+  );
+};
