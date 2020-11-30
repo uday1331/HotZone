@@ -4,15 +4,16 @@
 
 https://hotzone-group-q-final.herokuapp.com/
 
-## Iteration 2:
+## Iteration 3:
 
-As expected, the first iteration of HotZone will handle the simple case where there is a single GeoData location that satisfies the search criteria and the location is not already known to HotZone.
+This iteration focuses on calculating case clusters and presenting them nicely. The functionality to connect locations (visits) with cases is also introduced.
 
 ## Limitations and Exclusions:
 
-- Editing and Deleting Locations is not allowed.
+- Support for on-demand clustering is not available, clustering takes place whenever visit data changes.
 - Location can only be created based on GeoData Store i.e user cannot choose to input own values for the Location.
-- Case Data storage is not supported yet.
+- Data cannot be loaded from spreadsheets or CSV files, which are legacy methods of storing data.
+- Cases are identified by global IDs, instead of being grouped by disease outbreaks first.
 - Takes long to load.
 
 ## Setting up the development environment:
