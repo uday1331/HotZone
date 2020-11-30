@@ -1,4 +1,4 @@
-from .models import Location, Patient, Case
+from .models import Location, Patient, Case, Visit
 from .serializers import LocationSerializer, PatientSerializer, CaseSerializer
 
 from rest_framework import generics, status
@@ -11,6 +11,12 @@ from rest_framework.authtoken.models import Token
 
 import requests as req
 import urllib.parse
+
+# Packages for clustering
+import numpy as np
+from sklearn.cluster import DBSCAN
+import math
+from datetime import date
 
 def geoDataToLocationModel(geo_data):
     location_data = {}
@@ -120,3 +126,86 @@ class ChangePassword(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+class ClustersList(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def custom_metric(self, q, p, space_eps, time_eps):
+        dist = 0
+        for i in range(2):
+            dist += (q[i] - p[i]) ** 2
+        spatial_dist = math.sqrt(dist)
+
+        time_dist = math.sqrt((q[2] - p[2]) ** 2)
+
+        if time_dist/time_eps <= 1 and spatial_dist <= 1 and p[3] != q[3]:
+            return 1
+        else:
+            return 2
+
+    # The fact that this logic is here breaks MVC...
+    # But it's okay for this final sprint, I think.
+    # I would put this in models.py, but we have the
+    # baggage of Django here.
+    def cluster(self, vector_4d, distance, time, minimum_cluster):
+        params = {"space_eps": distance, "time_eps": time}
+        db = DBSCAN(eps=10, min_samples=minimum_cluster-1, metric=self.custom_metric, metric_params=params).fit_predict(vector_4d)
+
+        unique_labels = set(db)
+        total_clusters = len(unique_labels) if -1 not in unique_labels else len(unique_labels) - 1
+        total_noise = list(db).count(-1)
+
+        clusters = dict()
+        for k in unique_labels:
+            if k != -1:
+                labels_k = db == k
+                cluster_k = vector_4d[labels_k]
+
+                cluster_cases = []
+                cluster_locations = set()
+                for pt in cluster_k:
+                    case = {
+                        'x': pt[0],
+                        'y': pt[1],
+                        'day': pt[2],
+                        'caseNo': pt[3],
+                    }
+                    cluster_cases.append(case)
+
+                    # Add location info back into cluster for intuitive display in frontend
+                    queryset = Location.objects.values('name').get(x_coord__exact=case['x'], y_coord__exact=case['y'])
+                    location = dict(queryset)['name']
+                    cluster_locations.add(location)
+
+                clusters[str(k)] = {
+                    'cases': cluster_cases,
+                    'locations_involved': list(cluster_locations)
+                }
+
+        return clusters
+
+    def get(self, request):
+        # Get query parameters
+        distance = int(request.GET.get('distance', 200))
+        time = int(request.GET.get('time', 3))
+        minimum_cluster = int(request.GET.get('minimum_cluster', 2))
+
+        queryset = Visit.objects.values('location__x_coord', 'location__y_coord', 'date_from', 'case')
+        visits = list(queryset)
+
+        DAY_ZERO = date(2020, 1, 1)
+
+        # Massage data for clustering
+        np_array = []
+        for visit in visits:
+            raw_date = visit['date_from']
+
+            # Number of days from DAY_ZERO (as specified in Sprint 3 tasksheet)
+            days = (raw_date - DAY_ZERO).days
+            vector_4d = [visit['location__x_coord'], visit['location__y_coord'], days, visit['case']]
+            np_array.append(vector_4d)
+
+        np_array = np.array(np_array)
+        
+        clusters = self.cluster(np_array, distance, time, minimum_cluster)
+
+        return Response(clusters, status=status.HTTP_200_OK)
