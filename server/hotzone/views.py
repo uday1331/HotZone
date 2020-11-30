@@ -137,7 +137,7 @@ class ClustersList(APIView):
 
         time_dist = math.sqrt((q[2] - p[2]) ** 2)
 
-        if time_dist/time_eps <= 1 and spatial_dist <= 1 and p[3] != q[3]:
+        if time_dist/time_eps <= 1 and spatial_dist/space_eps <= 1 and p[3] != q[3]:    
             return 1
         else:
             return 2
@@ -148,7 +148,7 @@ class ClustersList(APIView):
     # baggage of Django here.
     def cluster(self, vector_4d, distance, time, minimum_cluster):
         params = {"space_eps": distance, "time_eps": time}
-        db = DBSCAN(eps=10, min_samples=minimum_cluster-1, metric=self.custom_metric, metric_params=params).fit_predict(vector_4d)
+        db = DBSCAN(eps=1, min_samples=minimum_cluster-1, metric=self.custom_metric, metric_params=params).fit_predict(vector_4d)
 
         unique_labels = set(db)
         total_clusters = len(unique_labels) if -1 not in unique_labels else len(unique_labels) - 1
@@ -166,8 +166,8 @@ class ClustersList(APIView):
                     case = {
                         'x': pt[0],
                         'y': pt[1],
-                        'day': pt[2],
-                        'caseNo': pt[3],
+                        'day': int(pt[2]),
+                        'caseNo': int(pt[3]),
                     }
                     cluster_cases.append(case)
 
@@ -180,7 +180,7 @@ class ClustersList(APIView):
                     'cases': cluster_cases,
                     'locations_involved': list(cluster_locations)
                 }
-
+        
         return clusters
 
     def get(self, request):
