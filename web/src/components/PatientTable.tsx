@@ -39,7 +39,7 @@ export const PatientTable: React.FC = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://hotzone-group-q-final.herokuapp.com/hotzone/patients.json",
+          "/hotzone/patients.json",
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("token")}`,
