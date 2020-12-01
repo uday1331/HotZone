@@ -6,4 +6,14 @@ interface LocationType {
   address: string;
 }
 
-export type { LocationType };
+interface ClusterType {
+  cases: Array<{
+    x: string;
+    y: string;
+    day: number;
+    caseNo: number;
+  }>;
+  locations_involved: Array<string>;
+}
+
+export type { LocationType, ClusterType };

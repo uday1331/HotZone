@@ -7,3 +7,4 @@ export { CasesList } from "./CasesList";
 export { CaseDetails } from "./CaseDetails";
 export { LoginPage } from "./LoginPage";
 export { Settings } from "./Settings";
+export { Cluster } from "./Cluster";
