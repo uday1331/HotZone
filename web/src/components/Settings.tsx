@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Typography, Input, Button, message } from "antd";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const { Title } = Typography;
 
 export const Settings: React.FC = () => {
+  const history = useHistory();
+
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -49,6 +52,18 @@ export const Settings: React.FC = () => {
         loading={loading}
       >
         Change
+      </Button>
+
+      <Button
+        style={{ display: "block", marginTop: "64px", marginLeft: "auto", marginRight: "auto" }}
+        type="primary"
+        danger
+        onClick={() => {
+          localStorage.clear();
+          history.go(0);
+        }}
+      >
+        Log Out
       </Button>
     </div>
   );
