@@ -199,5 +199,5 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 
-server-env
+server-env/
 .vscode

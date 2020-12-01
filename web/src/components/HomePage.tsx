@@ -1,6 +1,11 @@
 import React from "react";
 import { Layout, Menu } from "antd";
-import { EnvironmentOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  UserOutlined,
+  SettingOutlined,
+  DotChartOutlined,
+} from "@ant-design/icons";
 
 import { Logo } from "./Logo";
 import { Link, useLocation } from "react-router-dom";
@@ -31,7 +36,10 @@ export const HomePage: React.FC<HomePageProps> = ({ children }) => {
           <Menu.Item key="patients" icon={<UserOutlined />}>
             <Link to="/patients">Patients</Link>
           </Menu.Item>
-          <Menu.Item key="settings" icon={<UserOutlined />}>
+          <Menu.Item key="cluster" icon={<DotChartOutlined />}>
+            <Link to="/cluster">Cluster</Link>
+          </Menu.Item>
+          <Menu.Item key="settings" icon={<SettingOutlined />}>
             <Link to="/settings">Settings</Link>
           </Menu.Item>
         </Menu>

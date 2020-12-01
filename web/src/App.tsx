@@ -16,6 +16,7 @@ import {
   LoginPage,
   CaseDetails,
   Settings,
+  Cluster,
 } from "./components";
 
 const NavBarLayout = () => {
@@ -43,6 +44,9 @@ const NavBarLayout = () => {
         </Route>
         <Route exact path="/addlocation">
           <AddLocation />
+        </Route>
+        <Route exact path="/cluster">
+          <Cluster />
         </Route>
       </Switch>
     </HomePage>
