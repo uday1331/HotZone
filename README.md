@@ -10,7 +10,6 @@ This iteration focuses on calculating case clusters and presenting them nicely. 
 
 ## Limitations and Exclusions:
 
-- Support for on-demand clustering is not available, clustering takes place whenever visit data changes.
 - Location can only be created based on GeoData Store i.e user cannot choose to input own values for the Location.
 - Data cannot be loaded from spreadsheets or CSV files, which are legacy methods of storing data.
 - Cases are identified by global IDs, instead of being grouped by disease outbreaks first.
