@@ -14,6 +14,7 @@ urlpatterns = [
     path('case/<int:case_no>/', views.CaseOne.as_view()),
     path('clusters/', views.ClustersList.as_view()),
     path('change_password/', views.ChangePassword.as_view()),
+    path('visit/', views.VisitList.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

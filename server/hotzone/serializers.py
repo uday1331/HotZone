@@ -11,12 +11,10 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = ['hkid', 'name', 'dob']
 
-class VisitSerializer(serializers.ModelSerializer):
-    location = serializers.PrimaryKeyRelatedField(read_only=True)
-
+class VisitSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Visit
-        fields = ['case', 'location', 'date_from', 'date_to', 'category']
+        fields = ['id', 'case', 'location', 'date_from', 'date_to', 'category']
 
     def to_representation(self, value):
         data = super().to_representation(value)
@@ -36,7 +34,7 @@ class CaseSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Case
-        fields = ['case_no', 'confirmed', 'origin', 'patient', 'virus', 'locations']
+        fields = ['id', 'case_no', 'confirmed', 'origin', 'patient', 'virus', 'locations']
 
     def to_representation(self, value):
         data = super().to_representation(value)

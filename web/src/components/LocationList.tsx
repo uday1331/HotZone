@@ -15,7 +15,7 @@ export const LocationList: React.FC = () => {
     if (loading) {
       axios
         .get(
-          `https://hotzone-group-q-final.herokuapp.com/hotzone/locations.json`,
+          `/hotzone/locations.json`,
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("token")}`,

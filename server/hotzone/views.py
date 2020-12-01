@@ -1,5 +1,5 @@
 from .models import Location, Patient, Case, Visit
-from .serializers import LocationSerializer, PatientSerializer, CaseSerializer
+from .serializers import LocationSerializer, PatientSerializer, CaseSerializer, VisitSerializer
 
 from rest_framework import generics, status
 from rest_framework.parsers import JSONParser
@@ -84,6 +84,26 @@ class LocationList(generics.ListCreateAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class VisitList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = VisitSerializer
+
+    def get_queryset(self):
+        case_id = self.request.query_params.get('case', None)
+        queryset = Visit.objects.all()
+
+        if case_id is not None:
+            queryset = queryset.filter(case=case_id)
+        
+        return queryset
+
+    def create(self, request):
+        data = request.data
+        serializer = VisitSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PatientList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)

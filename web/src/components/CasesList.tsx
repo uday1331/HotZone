@@ -60,7 +60,7 @@ export const CasesList: React.FC = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "https://hotzone-group-q-final.herokuapp.com/hotzone/cases.json",
+          "/hotzone/cases.json",
           {
             headers: {
               Authorization: `Token ${localStorage.getItem("token")}`,

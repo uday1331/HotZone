@@ -26,7 +26,7 @@ export const Settings: React.FC = () => {
             setLoading(true);
             if (newPassword && newPassword.length > 3) {
               await axios.put(
-                "https://hotzone-group-q-final.herokuapp.com/hotzone/change_password/",
+                "/hotzone/change_password/",
                 {
                   new_password: newPassword,
                 },
